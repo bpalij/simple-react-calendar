@@ -7,6 +7,7 @@ import {
   withRouter
 } from "react-router-dom";
 import '../App.css';
+import { TITLE_LOCALSTORAGE_KEY } from '../constants';
 
 export default withRouter(function ({ location, setTitles, titles }) {
   const { timeIndex, date } = location.state
@@ -25,6 +26,7 @@ export default withRouter(function ({ location, setTitles, titles }) {
           const newTitles = {...titles};
           newTitles[`${date.getDate()}-${timeIndex}`] = e.target.value;
           setTitles(newTitles);
+          localStorage.setItem(TITLE_LOCALSTORAGE_KEY, JSON.stringify(newTitles));
         }} />
       </div>
       <div>

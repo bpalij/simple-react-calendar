@@ -9,6 +9,23 @@ import {
 import './App.css';
 import Table from './components/Table';
 import Form from './components/Form';
+import { TITLE_LOCALSTORAGE_KEY } from './constants';
+
+const titlesFromLocalStorageJson = localStorage.getItem(TITLE_LOCALSTORAGE_KEY);
+let titlesFromLocalStorage;
+
+if (titlesFromLocalStorageJson) {
+  try {
+    titlesFromLocalStorage = JSON.parse(titlesFromLocalStorageJson);
+  } catch (e) {
+    console.error(e);
+    console.error('Incorrect JSON for this localstorage key, going to fallback');
+  }
+}
+
+if (!titlesFromLocalStorage) {
+  titlesFromLocalStorage = {};
+}
 
 function App() {
   // return (
@@ -29,7 +46,7 @@ function App() {
   //     </header>
   //   </div>
   // );
-  const [ titles, setTitles ] = useState({});
+  const [ titles, setTitles ] = useState(titlesFromLocalStorage);
   return (
     <div className="MyApp">
       <Router>
